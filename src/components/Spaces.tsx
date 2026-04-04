@@ -83,6 +83,9 @@ export default function Spaces() {
                     onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
                   >Reservar</a>
                 </div>
+                <p style={{ fontSize: 11, color: '#1ABFAA', marginTop: 10, cursor: 'pointer' }}>
+                  Consulta disponibilidad por WhatsApp
+                </p>
               </div>
             </div>
           ))}

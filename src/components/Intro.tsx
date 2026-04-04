@@ -8,7 +8,7 @@ export default function Intro() {
       {/* Imagen izquierda */}
       <div style={{ position: 'relative', minHeight: 400 }}>
         <Image
-          src="/images/espacios/mostrador.jpg"
+          src="/images/bebidas/latte-rosado.jpg"
           alt="Interior Casa Turquesa"
           fill
           loading="eager"

@@ -31,7 +31,7 @@ export default function Products() {
   }
 
   return (
-    <section id="productos" style={{ backgroundColor: '#fff', padding: '4rem 2rem' }}>
+    <section id="productos" style={{ backgroundColor: '#fff', padding: '3rem 1rem' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>

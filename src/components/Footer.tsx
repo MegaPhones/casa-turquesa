@@ -16,9 +16,9 @@ export default function Footer() {
             </p>
             <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}>
               <p style={{ margin: '0 0 4px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>Horarios</p>
-              <p style={{ margin: 0 }}>Lun–Vie: 8:00 – 20:00</p>
+              <p style={{ margin: 0 }}>Lun–Vie: 8:00 – 22:00</p>
               <p style={{ margin: 0 }}>Sábado: 9:00 – 21:00</p>
-              <p style={{ margin: 0 }}>Domingo: 10:00 – 18:00</p>
+              <p style={{ margin: 0 }}>Domingo: 10:00 – 20:00</p>
             </div>
           </div>
 
@@ -41,9 +41,9 @@ export default function Footer() {
           <div>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: 20 }}>Contacto</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 14, color: 'rgba(255,255,255,0.6)' }}>
-              <p style={{ margin: 0 }}>📍 Av. Irarrázaval 1234, Ñuñoa<br /><span style={{ fontSize: 13 }}>Santiago, Chile</span></p>
-              <p style={{ margin: 0 }}>✉️ hola@casaturquesa.cl</p>
-              <p style={{ margin: 0 }}>📞 +56 9 1234 5678</p>
+              <p style={{ margin: 0 }}>📍 Av. Ortúzar 250, Ñuñoa<br /><span style={{ fontSize: 13 }}>Santiago, Chile</span></p>
+              <p style={{ margin: 0 }}>✉️ contacto@casaturquesa.cl</p>
+              <p style={{ margin: 0 }}>📞 +56 9 2825 4899</p>
             </div>
             <div style={{ display: 'flex', gap: 12, marginTop: 24 }}>
               {['Instagram', 'TikTok'].map(red => (

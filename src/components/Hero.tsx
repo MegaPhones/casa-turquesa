@@ -31,15 +31,18 @@ export default function Hero() {
         <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 400, lineHeight: 1.15, margin: '0 0 20px', maxWidth: 700 }}>
           Un lugar donde el café<br />es ritual
         </h1>
-        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.82)', maxWidth: 480, lineHeight: 1.7, margin: '0 0 36px' }}>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.82)', maxWidth: 480, lineHeight: 1.7, margin: '0 0 20px' }}>
           Cafetería artesanal, tostaduria de especialidad<br />y tienda curada en Ñuñoa.
+        </p>
+        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.85)', margin: '0 0 32px', letterSpacing: '0.3px' }}>
+          📍 Av. Ortúzar 250, Ñuñoa &nbsp;|&nbsp; 🕐 Lun-Vie 8:00–22:00 &nbsp;|&nbsp; 🌱 Opciones veganas y sin gluten
         </p>
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
           <a href="#productos" style={{
-            padding: '12px 32px', borderRadius: 100, fontWeight: 600, fontSize: 13,
+            padding: '15px 35px', borderRadius: 100, fontWeight: 600, fontSize: 13,
             backgroundColor: '#fff', color: '#0F8A7A', textDecoration: 'none',
             letterSpacing: '0.5px', transition: 'opacity 0.2s',
-          }}>Explorar menú</a>
+          }}>Ver menú completo</a>
           <a href="#intro" style={{
             padding: '12px 32px', borderRadius: 100, fontWeight: 600, fontSize: 13,
             backgroundColor: 'transparent', color: '#fff',

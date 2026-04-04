@@ -15,51 +15,88 @@ const photos = [
 
 export default function Gallery() {
   return (
-    <section id="galeria" style={{ backgroundColor: '#FAF7F2', padding: '4rem 2rem' }}>
+    <section id="galeria" style={{ backgroundColor: '#FAF7F2', padding: '3rem 1rem' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#1ABFAA', marginBottom: 12 }}>
-            Instagram
-          </p>
-          <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(28px, 3vw, 38px)', fontWeight: 400, color: '#1a1a1a', marginBottom: 16 }}>
-            Galería
-          </h2>
-          {/* Live indicator */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#555' }}>
-            <span style={{
-              width: 8, height: 8, borderRadius: '50%', backgroundColor: '#22c55e',
-              display: 'inline-block',
-              boxShadow: '0 0 0 3px rgba(34,197,94,0.2)',
-              animation: 'pulse 2s infinite',
-            }} />
-            Conectado a @casaturquesa.cl
-          </div>
+
+        {/* Label */}
+        <p style={{
+          fontSize: 10, fontWeight: 700, letterSpacing: '3px',
+          textTransform: 'uppercase', color: '#1ABFAA', marginBottom: 8,
+        }}>
+          Instagram
+        </p>
+
+        {/* Título */}
+        <h2 style={{
+          fontFamily: 'Georgia, serif', fontSize: 28, fontWeight: 400,
+          color: '#1a1a1a', marginBottom: 14,
+        }}>
+          Nuestra galería en vivo
+        </h2>
+
+        {/* Indicador en vivo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: '1.5rem' }}>
+          <span style={{
+            width: 8, height: 8, borderRadius: '50%',
+            backgroundColor: '#22c55e', display: 'inline-block',
+            animation: 'pulse 2s infinite',
+            flexShrink: 0,
+          }} />
+          <span style={{ fontSize: 12, color: '#888' }}>
+            Conectado a @casaturquesa.cl — actualización automática
+          </span>
         </div>
 
-        {/* Grid 4 columnas */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }} className="gallery-grid">
+        {/* Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 4,
+        }} className="gallery-grid">
           {photos.map((photo, i) => (
-            <div key={i} style={{ position: 'relative', aspectRatio: '1 / 1', overflow: 'hidden', borderRadius: 12, backgroundColor: '#e8e0d8', cursor: 'pointer' }}
-              onMouseEnter={e => { const img = e.currentTarget.querySelector('img'); if (img) (img as HTMLImageElement).style.transform = 'scale(1.06)' }}
-              onMouseLeave={e => { const img = e.currentTarget.querySelector('img'); if (img) (img as HTMLImageElement).style.transform = 'scale(1)' }}
-            >
-              <Image src={photo.src} alt={photo.alt} fill loading="eager" style={{ objectFit: 'cover', objectPosition: 'top', transition: 'transform 0.5s ease' }} />
+            <div key={i} style={{
+              aspectRatio: '1 / 1',
+              borderRadius: 6,
+              overflow: 'hidden',
+              backgroundColor: '#e8e0d8',
+              position: 'relative',
+              cursor: 'pointer',
+            }}>
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                loading="eager"
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center top',
+                  transition: 'transform 0.4s ease',
+                }}
+                onMouseEnter={e => ((e.target as HTMLImageElement).style.transform = 'scale(1.05)')}
+                onMouseLeave={e => ((e.target as HTMLImageElement).style.transform = 'scale(1)')}
+              />
             </div>
           ))}
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            fontSize: 13, fontWeight: 600, color: '#1ABFAA',
-            border: '1.5px solid #1ABFAA', padding: '10px 24px',
-            borderRadius: 100, textDecoration: 'none', transition: 'all 0.2s',
-          }}
-            onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#1ABFAA'; e.currentTarget.style.color = '#fff' }}
-            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#1ABFAA' }}
+        {/* Link Instagram */}
+        <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontSize: 12, fontWeight: 700, letterSpacing: '1.5px',
+              textTransform: 'uppercase', color: '#1ABFAA',
+              textDecoration: 'none',
+              borderBottom: '1.5px solid #1ABFAA',
+              paddingBottom: 2,
+              transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            Ver en Instagram
+            Ver más en Instagram →
           </a>
         </div>
       </div>
