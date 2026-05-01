@@ -1,9 +1,20 @@
 'use client'
 
-export default function Footer() {
+interface FooterProps {
+  hoursWeekday?: string
+  hoursSaturday?: string
+  hoursSunday?: string
+  address?: string
+  phone?: string
+  email?: string
+}
+
+export default function Footer({
+  hoursWeekday, hoursSaturday, hoursSunday, address, phone, email,
+}: FooterProps = {}) {
   return (
-    <footer style={{ backgroundColor: '#0d1f1d', color: '#fff', padding: '4rem 2rem 2rem' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <footer style={{ backgroundColor: '#0d1f1d', color: '#fff', padding: '4rem 3% 2rem' }}>
+      <div style={{ maxWidth: 1600, margin: '0 auto' }}>
         {/* Grid 3 columnas */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3rem', paddingBottom: '3rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }} className="footer-grid">
           {/* Col 1: Logo + descripción */}
@@ -16,9 +27,9 @@ export default function Footer() {
             </p>
             <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}>
               <p style={{ margin: '0 0 4px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>Horarios</p>
-              <p style={{ margin: 0 }}>Lun–Vie: 8:00 – 22:00</p>
-              <p style={{ margin: 0 }}>Sábado: 9:00 – 21:00</p>
-              <p style={{ margin: 0 }}>Domingo: 10:00 – 20:00</p>
+              <p style={{ margin: 0 }}>{hoursWeekday ?? 'Lun–Vie: 8:00 – 22:00'}</p>
+              <p style={{ margin: 0 }}>{hoursSaturday ?? 'Sábado: 9:00 – 21:00'}</p>
+              <p style={{ margin: 0 }}>{hoursSunday ?? 'Domingo: 10:00 – 20:00'}</p>
             </div>
           </div>
 
@@ -41,20 +52,23 @@ export default function Footer() {
           <div>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: 20 }}>Contacto</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 14, color: 'rgba(255,255,255,0.6)' }}>
-              <p style={{ margin: 0 }}>📍 Av. Ortúzar 250, Ñuñoa<br /><span style={{ fontSize: 13 }}>Santiago, Chile</span></p>
-              <p style={{ margin: 0 }}>✉️ contacto@casaturquesa.cl</p>
-              <p style={{ margin: 0 }}>📞 +56 9 2825 4899</p>
+              <p style={{ margin: 0 }}>📍 {address ?? 'Av. Ortúzar 250, Ñuñoa'}<br /><span style={{ fontSize: 13 }}>Santiago, Chile</span></p>
+              <p style={{ margin: 0 }}>✉️ {email || 'contacto@casaturquesa.cl'}</p>
+              <p style={{ margin: 0 }}>📞 {phone || '+56 9 2825 4899'}</p>
             </div>
             <div style={{ display: 'flex', gap: 12, marginTop: 24 }}>
-              {['Instagram', 'TikTok'].map(red => (
-                <a key={red} href="#" style={{
+              {[
+                { label: 'Instagram', href: 'https://www.instagram.com/casaturquesa.cl/' },
+                { label: 'TikTok', href: 'https://www.tiktok.com/@casaturquesa' },
+              ].map(({ label, href }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{
                   fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.5)',
                   border: '1px solid rgba(255,255,255,0.15)', padding: '6px 14px',
                   borderRadius: 100, textDecoration: 'none', transition: 'all 0.2s',
                 }}
                   onMouseEnter={e => { e.currentTarget.style.color = '#1ABFAA'; e.currentTarget.style.borderColor = '#1ABFAA' }}
                   onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)' }}
-                >{red}</a>
+                >{label}</a>
               ))}
             </div>
           </div>

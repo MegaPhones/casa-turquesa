@@ -2,9 +2,14 @@
 
 import Image from 'next/image'
 
-export default function Hero() {
+interface HeroProps {
+  title?: string
+  subtitle?: string
+}
+
+export default function Hero({ title, subtitle }: HeroProps = {}) {
   return (
-    <section style={{ position: 'relative', height: 500, marginTop: 64, overflow: 'hidden' }}>
+    <section style={{ position: 'relative', height: '100vh', minHeight: 600, marginTop: 64, overflow: 'hidden' }}>
       {/* Imagen con filtro oscuro */}
       <div style={{ position: 'absolute', inset: 0 }}>
         <Image
@@ -29,10 +34,10 @@ export default function Hero() {
           Ñuñoa · Santiago de Chile
         </p>
         <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 400, lineHeight: 1.15, margin: '0 0 20px', maxWidth: 700 }}>
-          Un lugar donde el café<br />es ritual
+          {title ?? <>Un lugar donde el café<br />es ritual</>}
         </h1>
         <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.82)', maxWidth: 480, lineHeight: 1.7, margin: '0 0 20px' }}>
-          Cafetería artesanal, tostaduria de especialidad<br />y tienda curada en Ñuñoa.
+          {subtitle ?? <>Cafetería artesanal, tostaduria de especialidad<br />y tienda curada en Ñuñoa.</>}
         </p>
         <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.85)', margin: '0 0 32px', letterSpacing: '0.3px' }}>
           📍 Av. Ortúzar 250, Ñuñoa &nbsp;|&nbsp; 🕐 Lun-Vie 8:00–22:00 &nbsp;|&nbsp; 🌱 Opciones veganas y sin gluten

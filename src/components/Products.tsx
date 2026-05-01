@@ -31,8 +31,8 @@ export default function Products() {
   }
 
   return (
-    <section id="productos" style={{ backgroundColor: '#fff', padding: '3rem 1rem' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="productos" style={{ backgroundColor: '#FAF7F2', padding: '3rem 3%' }}>
+      <div style={{ maxWidth: 1600, margin: '0 auto' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
           <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#1ABFAA', marginBottom: 12 }}>
@@ -57,7 +57,7 @@ export default function Products() {
         </div>
 
         {/* Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.5rem' }} className="products-grid">
           {filtered.map(product => (
             <div key={product.id} style={{
               backgroundColor: '#fff', borderRadius: 16,

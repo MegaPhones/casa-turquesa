@@ -3,20 +3,20 @@
 import Image from 'next/image'
 
 const photos = [
-  { src: '/images/galeria/foto-1.jpg', alt: 'Casa Turquesa' },
-  { src: '/images/galeria/foto-2.jpg', alt: 'Nuestros cafés' },
-  { src: '/images/galeria/foto-3.jpg', alt: 'Platos' },
-  { src: '/images/galeria/foto-4.jpg', alt: 'Ambiente' },
   { src: '/images/bebidas/latte-rosado.jpg', alt: 'Latte rosado' },
-  { src: '/images/galeria/foto-5.jpg', alt: 'Espacio' },
   { src: '/images/postres/torta-merengue.jpg', alt: 'Torta merengue' },
-  { src: '/images/platos/waffles-crema.jpg', alt: 'Waffles' },
+  { src: '/images/tostadas/tostada-palta.jpg', alt: 'Tostada de palta' },
+  { src: '/images/postres/torta-citrico.jpg', alt: 'Torta cítrico' },
+  { src: '/images/espacios/mostrador.jpg', alt: 'Mostrador' },
+  { src: '/images/platos/waffles-banana.jpg', alt: 'Waffles banana' },
+  { src: '/images/bebidas/matcha-verde.jpg', alt: 'Matcha verde' },
+  { src: '/images/postres/torta-berries.jpg', alt: 'Torta berries' },
 ]
 
 export default function Gallery() {
   return (
-    <section id="galeria" style={{ backgroundColor: '#FAF7F2', padding: '3rem 1rem' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="galeria" style={{ backgroundColor: '#FAF7F2', padding: '3rem 3%' }}>
+      <div style={{ maxWidth: 1600, margin: '0 auto' }}>
 
         {/* Label */}
         <p style={{

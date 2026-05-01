@@ -25,20 +25,20 @@ const spaces = [
 
 export default function Spaces() {
   return (
-    <section id="espacios" style={{ backgroundColor: '#fff', padding: '4rem 2rem' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+    <section id="espacios" style={{ backgroundColor: '#0F1A18', padding: '4rem 3%' }}>
+      <div style={{ maxWidth: 1600, margin: '0 auto' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#1ABFAA', marginBottom: 12 }}>
             Experiencias
           </p>
-          <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(28px, 3vw, 38px)', fontWeight: 400, color: '#1a1a1a', margin: 0 }}>
+          <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(28px, 3vw, 38px)', fontWeight: 400, color: '#fff', margin: 0 }}>
             Espacios & Talleres
           </h2>
         </div>
 
         {/* Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }} className="spaces-grid">
           {spaces.map(space => (
             <div key={space.id} style={{
               borderRadius: 16, overflow: 'hidden',
@@ -73,12 +73,16 @@ export default function Spaces() {
                   <span style={{ fontSize: 12, color: '#888', backgroundColor: '#f5f0ea', padding: '4px 12px', borderRadius: 100 }}>👥 {space.capacity}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontFamily: 'Georgia, serif', fontSize: 16, fontWeight: 700, color: '#1a1a1a' }}>{space.price}</span>
-                  <a href="#agente" style={{
-                    fontSize: 13, fontWeight: 600, padding: '8px 20px',
-                    borderRadius: 100, backgroundColor: '#1ABFAA', color: '#fff',
-                    textDecoration: 'none', transition: 'opacity 0.2s',
-                  }}
+                  <span style={{ fontFamily: 'Georgia, serif', fontSize: 16, fontWeight: 700, color: '#1ABFAA' }}>{space.price}</span>
+                  <a
+                    href="https://wa.me/56928254899?text=Hola%20Casa%20Turquesa%2C%20quisiera%20hacer%20una%20reserva"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: 13, fontWeight: 600, padding: '8px 20px',
+                      borderRadius: 100, backgroundColor: '#1ABFAA', color: '#fff',
+                      textDecoration: 'none', transition: 'opacity 0.2s',
+                    }}
                     onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
                     onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
                   >Reservar</a>

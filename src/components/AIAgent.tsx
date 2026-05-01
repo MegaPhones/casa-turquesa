@@ -7,14 +7,19 @@ const SUGGESTED = [
   '¿Tienen opciones sin gluten?',
   'Quiero reservar para el sábado',
   '¿Cuál es el horario?',
+  '¿Cómo llegar?',
 ]
 
-const MOCK_REPLY = 'Hola 👋 Soy Turquesa, el asistente de Casa Turquesa. Pronto responderé en tiempo real. Por ahora escríbenos en Instagram o visítanos en Ñuñoa.'
+const MOCK_REPLY = 'Hola 👋 Soy Turquesa, el asistente de Casa Turquesa. Pronto responderé en tiempo real. Por ahora escríbenos por WhatsApp o visítanos en Ñuñoa.'
+
+const INITIAL_MESSAGES: { role: 'user' | 'ai'; text: string }[] = [
+  { role: 'ai', text: '¡Hola! Soy Turquesa, tu asistente. Puedo ayudarte con el menú, horarios, talleres y reservas. ¿En qué te ayudo?' },
+  { role: 'user', text: '¿Tienen opciones veganas?' },
+  { role: 'ai', text: '¡Sí! Tenemos muchas opciones veganas: smoothie bowls, tostadas de palta, granola artesanal y más. ¿Quieres que te cuente sobre alguno en particular?' },
+]
 
 export default function AIAgent() {
-  const [messages, setMessages] = useState<{ role: 'user' | 'ai'; text: string }[]>([
-    { role: 'ai', text: '¡Hola! Soy Turquesa, tu asistente virtual. ¿En qué puedo ayudarte hoy?' },
-  ])
+  const [messages, setMessages] = useState<{ role: 'user' | 'ai'; text: string }[]>(INITIAL_MESSAGES)
   const [input, setInput] = useState('')
 
   const send = (text: string) => {
@@ -24,8 +29,8 @@ export default function AIAgent() {
   }
 
   return (
-    <section id="agente" style={{ backgroundColor: '#FAF7F2', padding: '4rem 2rem' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }} className="agent-grid">
+    <section id="agente" style={{ backgroundColor: '#FAF7F2', padding: '4rem 3%' }}>
+      <div style={{ maxWidth: 1600, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }} className="agent-grid">
         {/* Izquierda: texto */}
         <div>
           <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '2.5px', textTransform: 'uppercase', color: '#1ABFAA', marginBottom: 16 }}>
@@ -35,10 +40,9 @@ export default function AIAgent() {
             Turquesa,<br />tu guía personal
           </h2>
           <p style={{ fontSize: 15, color: '#555', lineHeight: 1.75, marginBottom: 32 }}>
-            Nuestro asistente está entrenado con el menú, los talleres y el espíritu de Casa Turquesa.
-            Pronto podrás chatear, reservar y pedir desde aquí.
+            Próximamente podrás chatear directamente con Turquesa IA para consultar el menú, precios, disponibilidad de talleres y hacer reservas. Por ahora contáctanos por WhatsApp.
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 32 }}>
             {[
               ['🍃', 'Recomendaciones personalizadas del menú'],
               ['📅', 'Reservas de talleres y eventos'],
@@ -50,10 +54,22 @@ export default function AIAgent() {
               </div>
             ))}
           </div>
+          <button
+            onClick={() => window.open('https://wa.me/56928254899', '_blank')}
+            style={{
+              backgroundColor: '#25D366', color: '#fff', border: 'none',
+              borderRadius: 4, padding: '12px 24px', fontSize: 14,
+              fontWeight: 600, cursor: 'pointer', transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            Chatear por WhatsApp →
+          </button>
         </div>
 
         {/* Derecha: chat */}
-        <div style={{ backgroundColor: '#fff', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,0,0,0.1)' }}>
+        <div style={{ backgroundColor: '#fff', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,0,0,0.1)', minHeight: 480 }}>
           {/* Header */}
           <div style={{ backgroundColor: '#1ABFAA', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ width: 36, height: 36, borderRadius: '50%', backgroundColor: '#0F8A7A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 14 }}>T</div>
@@ -64,7 +80,7 @@ export default function AIAgent() {
           </div>
 
           {/* Mensajes */}
-          <div style={{ height: 240, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ minHeight: 280, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 10 }}>
             {messages.map((msg, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
                 <div style={{
