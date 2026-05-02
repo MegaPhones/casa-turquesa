@@ -9,7 +9,7 @@ interface HeroProps {
 
 export default function Hero({ title, subtitle }: HeroProps = {}) {
   return (
-    <section style={{ position: 'relative', height: '100vh', minHeight: 600, marginTop: 64, overflow: 'hidden' }}>
+    <section style={{ position: 'relative', height: '100vh', minHeight: 600, marginTop: 0, overflow: 'hidden' }}>
       {/* Imagen con filtro oscuro */}
       <div style={{ position: 'absolute', inset: 0 }}>
         <Image

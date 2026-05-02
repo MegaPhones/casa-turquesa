@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import LenisProvider from '@/components/LenisProvider'
+import CartDrawer from '@/components/tienda/CartDrawer'
 
 export const metadata: Metadata = {
   title: 'Casa Turquesa — Cafetería, Tostaduria & Tienda | Ñuñoa',
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className="antialiased">
         <LenisProvider>
           {children}
+          <CartDrawer />
         </LenisProvider>
       </body>
     </html>
