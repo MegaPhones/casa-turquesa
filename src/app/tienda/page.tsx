@@ -43,7 +43,7 @@ export default async function TiendaPage({
       vegetariano: sp.vt === '1',
       limit: 60,
     }),
-    getCategorias(),
+    getCategorias('tienda'),
     getMarcas('tienda'),
   ])
 

@@ -8,7 +8,7 @@ interface Props {
   variant?: 'desktop' | 'mobile'
 }
 
-export default function CartIcon({ className = '', variant = 'desktop' }: Props) {
+export default function CartIcon({ className = '' }: Props) {
   const openCart = useCart((s) => s.openCart)
   const { totalItems } = useCartTotals()
   const [mounted, setMounted] = useState(false)

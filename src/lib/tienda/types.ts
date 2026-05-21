@@ -4,6 +4,8 @@
 export type EstadoProducto = 'borrador' | 'publicado'
 export type TipoProducto = 'tienda' | 'carta'
 
+export type TipoCategoria = 'tienda' | 'carta' | 'ambos'
+
 export interface Categoria {
   id: string
   nombre: string
@@ -13,6 +15,7 @@ export interface Categoria {
   imagen_url: string | null
   orden: number | null
   activa: boolean
+  tipo: TipoCategoria | null
   created_at: string
   updated_at: string
 }

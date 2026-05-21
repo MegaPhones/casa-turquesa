@@ -39,11 +39,18 @@ export interface FiltrosTienda {
   offset?: number
 }
 
-export async function getCategorias(): Promise<Categoria[]> {
-  const { data, error } = await getClient()
+export async function getCategorias(tipo?: 'tienda' | 'carta'): Promise<Categoria[]> {
+  let query = getClient()
     .from('categorias')
     .select('*')
     .eq('activa', true)
+
+  // Filtrar por tipo: incluye también las marcadas como 'ambos'
+  if (tipo) {
+    query = query.in('tipo', [tipo, 'ambos'])
+  }
+
+  const { data, error } = await query
     .order('orden', { ascending: true, nullsFirst: false })
     .order('nombre', { ascending: true })
 
@@ -147,7 +154,7 @@ export async function getProductos(opts: FiltrosTienda = {}): Promise<{ producto
     imagenesPorProducto.set(i.producto_id, arr)
   })
 
-  let completos: ProductoCompleto[] = productos.map((p: Producto & { categoria: ProductoCompleto['categoria'] }) => {
+  const completos: ProductoCompleto[] = productos.map((p: Producto & { categoria: ProductoCompleto['categoria'] }) => {
     const vs = variantesPorProducto.get(p.id) ?? []
     const ims = imagenesPorProducto.get(p.id) ?? []
     const derivados = calcularDerivados(p, vs, ims)
@@ -299,21 +306,42 @@ export async function getCarta(): Promise<SeccionCarta[]> {
   const seccionesMap = new Map<string, SeccionCarta>()
   const SIN_CATEGORIA_ID = '__sin_categoria__'
 
-  data.forEach((row: any) => {
+  type CartaCategoriaRow = { id: string; nombre: string; slug: string; orden: number | null; activa: boolean } | null
+  type CartaVarianteRow = { precio: number; precio_descuento: number | null; es_default: boolean; orden: number | null; disponible: boolean }
+  type CartaImagenRow = { url: string; es_principal: boolean; orden: number | null }
+  type CartaRow = {
+    id: string
+    nombre: string
+    slug: string
+    descripcion_corta: string | null
+    descripcion_larga: string | null
+    destacado: boolean
+    sin_gluten: boolean | null
+    vegano: boolean | null
+    vegetariano: boolean | null
+    marca: string | null
+    categoria_id: string | null
+    estado: EstadoProducto
+    categoria: CartaCategoriaRow
+    variantes: CartaVarianteRow[] | null
+    imagenes: CartaImagenRow[] | null
+  }
+
+  ;(data as unknown as CartaRow[]).forEach((row) => {
     const cat = row.categoria
     if (cat && cat.activa === false) return
 
-    const variantes = Array.isArray(row.variantes) ? row.variantes : []
+    const variantes: CartaVarianteRow[] = Array.isArray(row.variantes) ? row.variantes : []
     const variante =
-      variantes.find((v: any) => v.es_default && v.precio > 0) ??
-      variantes.sort((a: any, b: any) => (a.orden ?? 999) - (b.orden ?? 999))[0]
+      variantes.find((v) => v.es_default && v.precio > 0) ??
+      variantes.sort((a, b) => (a.orden ?? 999) - (b.orden ?? 999))[0]
 
     if (!variante || variante.precio <= 0) return
 
-    const imagenes = Array.isArray(row.imagenes) ? row.imagenes : []
+    const imagenes: CartaImagenRow[] = Array.isArray(row.imagenes) ? row.imagenes : []
     const imagen =
-      imagenes.find((i: any) => i.es_principal) ??
-      imagenes.sort((a: any, b: any) => (a.orden ?? 999) - (b.orden ?? 999))[0]
+      imagenes.find((i) => i.es_principal) ??
+      imagenes.sort((a, b) => (a.orden ?? 999) - (b.orden ?? 999))[0]
 
     const item: ItemCarta = {
       id: row.id,

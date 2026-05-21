@@ -1,7 +1,5 @@
 import type { ItemCarta } from '@/lib/tienda/queries'
 
-const TURQUESA = '#2C5F5D'
-
 function formatearPrecio(n: number): string {
   return '$' + Math.round(n).toLocaleString('es-CL')
 }
