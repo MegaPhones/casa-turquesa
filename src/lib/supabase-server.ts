@@ -1,8 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+// Defaults seguros para que `next build` no rompa cuando las server-only vars
+// no están presentes (Docker build sólo pasa las NEXT_PUBLIC_*). En runtime
+// Easypanel inyecta las reales y los clients quedan correctamente configurados.
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
+const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key'
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder-service-key'
 
 export const supabaseAdmin = createClient(url, serviceKey, {
   auth: { persistSession: false, autoRefreshToken: false },
