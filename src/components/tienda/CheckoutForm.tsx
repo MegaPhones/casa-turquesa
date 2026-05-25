@@ -16,7 +16,7 @@ const COMUNAS_RM = [
   'Santiago', 'Vitacura',
 ].sort()
 
-const NUMERO_WA = process.env.NEXT_PUBLIC_WHATSAPP_NUMERO ?? '56928254899'
+const NUMERO_WA = process.env.NEXT_PUBLIC_WHATSAPP_NUMERO ?? '56935227488'
 
 interface FormErrors {
   nombre?: string

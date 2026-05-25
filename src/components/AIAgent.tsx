@@ -55,7 +55,7 @@ export default function AIAgent() {
             ))}
           </div>
           <button
-            onClick={() => window.open('https://wa.me/56928254899', '_blank')}
+            onClick={() => window.open('https://wa.me/56935227488', '_blank')}
             style={{
               backgroundColor: '#25D366', color: '#fff', border: 'none',
               borderRadius: 4, padding: '12px 24px', fontSize: 14,

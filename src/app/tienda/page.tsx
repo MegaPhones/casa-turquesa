@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -6,13 +7,24 @@ import ProductGrid from '@/components/tienda/ProductGrid'
 import FiltersPanel from '@/components/tienda/FiltersPanel'
 import FiltersDrawer from '@/components/tienda/FiltersDrawer'
 import SearchBar from '@/components/tienda/SearchBar'
+import JsonLd from '@/components/seo/JsonLd'
 import { getProductos, getCategorias, getMarcas } from '@/lib/tienda/queries'
+import { SITE_URL, BUSINESS_INFO } from '@/lib/business-info'
 
 export const revalidate = 60
 
-export const metadata = {
-  title: 'Tienda — Casa Turquesa',
-  description: 'Café de especialidad, productos seleccionados y delicias artesanales. Casa Turquesa, Ñuñoa.',
+export const metadata: Metadata = {
+  title: 'Tienda online | Café de especialidad y alimentos saludables',
+  description:
+    'Tienda online Casa Turquesa: café de especialidad, té, frutos secos, conservas, productos veganos y sin gluten. Despacho a Santiago vía WhatsApp.',
+  alternates: { canonical: '/tienda' },
+  openGraph: {
+    title: 'Tienda online | Casa Turquesa',
+    description:
+      'Café de especialidad, té, frutos secos y productos seleccionados. Despacho a Santiago.',
+    url: `${SITE_URL}/tienda`,
+    images: [{ url: BUSINESS_INFO.ogImage, width: 1200, height: 630 }],
+  },
 }
 
 interface SearchParams {
@@ -49,8 +61,25 @@ export default async function TiendaPage({
 
   const hayFiltros = !!(sp.categoria || sp.marca || sp.q || sp.sg === '1' || sp.vg === '1' || sp.vt === '1')
 
+  const storeSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Store',
+    '@id': `${SITE_URL}/tienda#store`,
+    name: 'Tienda Casa Turquesa',
+    description:
+      'Tienda online de Casa Turquesa: café de especialidad, té, frutos secos, conservas y productos seleccionados.',
+    url: `${SITE_URL}/tienda`,
+    image: `${SITE_URL}${BUSINESS_INFO.ogImage}`,
+    parentOrganization: { '@id': `${SITE_URL}/#business` },
+    address: { '@type': 'PostalAddress', ...BUSINESS_INFO.address },
+    telephone: BUSINESS_INFO.phone,
+    currenciesAccepted: BUSINESS_INFO.currenciesAccepted,
+    paymentAccepted: BUSINESS_INFO.paymentAccepted,
+  }
+
   return (
     <main className="min-h-screen bg-[#FAF8F4]">
+      <JsonLd data={storeSchema} />
       <Navbar />
 
       <section className="relative pt-12 pb-10 md:pt-16 md:pb-14 px-4 sm:px-6 lg:px-8">

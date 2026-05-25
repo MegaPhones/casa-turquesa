@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -7,7 +8,9 @@ import VariantSelector from '@/components/tienda/VariantSelector'
 import ProductInfo from '@/components/tienda/ProductInfo'
 import Breadcrumbs from '@/components/tienda/Breadcrumbs'
 import ProductCard from '@/components/tienda/ProductCard'
+import JsonLd from '@/components/seo/JsonLd'
 import { getProductoBySlug, getRelacionados } from '@/lib/tienda/queries'
+import { SITE_URL, BUSINESS_INFO } from '@/lib/business-info'
 
 export const revalidate = 60
 
@@ -15,18 +18,28 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }> | { slug: string }
-}) {
+}): Promise<Metadata> {
   const { slug } = await Promise.resolve(params)
   const producto = await getProductoBySlug(slug)
   if (!producto) {
-    return { title: 'Producto no encontrado — Casa Turquesa' }
+    return { title: 'Producto no encontrado' }
   }
+  const descripcion =
+    producto.meta_descripcion ??
+    producto.descripcion_corta ??
+    `${producto.nombre} en Casa Turquesa, Ñuñoa. Despacho a Santiago vía WhatsApp.`
+  const imagenAbs = producto.imagen_principal?.url ?? `${SITE_URL}${BUSINESS_INFO.ogImage}`
   return {
-    title: producto.meta_titulo ?? `${producto.nombre} — Casa Turquesa`,
-    description:
-      producto.meta_descripcion ??
-      producto.descripcion_corta ??
-      `${producto.nombre} en Casa Turquesa, Ñuñoa.`,
+    title: producto.meta_titulo ?? producto.nombre,
+    description: descripcion.slice(0, 160),
+    alternates: { canonical: `/tienda/${producto.slug}` },
+    openGraph: {
+      title: `${producto.nombre} | Casa Turquesa`,
+      description: descripcion.slice(0, 160),
+      url: `${SITE_URL}/tienda/${producto.slug}`,
+      type: 'website',
+      images: [{ url: imagenAbs, alt: producto.nombre }],
+    },
   }
 }
 
@@ -58,8 +71,40 @@ export default async function ProductoDetalle({
     { label: producto.nombre },
   ]
 
+  // JSON-LD Product con stock real y precio mínimo (entre variantes)
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': `${SITE_URL}/tienda/${producto.slug}#product`,
+    name: producto.nombre,
+    description:
+      producto.descripcion_larga ??
+      producto.descripcion_corta ??
+      `${producto.nombre} en Casa Turquesa, Ñuñoa.`,
+    image: producto.imagenes.length > 0
+      ? producto.imagenes.map(i => i.url)
+      : [`${SITE_URL}${BUSINESS_INFO.ogImage}`],
+    sku: producto.sku_base,
+    brand: {
+      '@type': 'Brand',
+      name: producto.marca ?? BUSINESS_INFO.shortName,
+    },
+    category: producto.categoria?.nombre,
+    offers: {
+      '@type': 'Offer',
+      url: `${SITE_URL}/tienda/${producto.slug}`,
+      priceCurrency: 'CLP',
+      price: producto.precio_min > 0 ? producto.precio_min : producto.precio_max,
+      availability: producto.variantes.some(v => v.disponible && (v.stock ?? 0) > 0)
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      seller: { '@id': `${SITE_URL}/#business` },
+    },
+  }
+
   return (
     <main className="min-h-screen bg-[#FAF8F4]">
+      <JsonLd data={productSchema} />
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20">

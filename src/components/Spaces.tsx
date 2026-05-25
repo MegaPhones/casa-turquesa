@@ -75,7 +75,7 @@ export default function Spaces() {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <span style={{ fontFamily: 'Georgia, serif', fontSize: 16, fontWeight: 700, color: '#1ABFAA' }}>{space.price}</span>
                   <a
-                    href="https://wa.me/56928254899?text=Hola%20Casa%20Turquesa%2C%20quisiera%20hacer%20una%20reserva"
+                    href="https://wa.me/56935227488?text=Hola%20Casa%20Turquesa%2C%20quisiera%20hacer%20una%20reserva"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{

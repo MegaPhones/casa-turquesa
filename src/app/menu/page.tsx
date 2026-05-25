@@ -1,15 +1,26 @@
+import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import MenuNav from '@/components/tienda/MenuNav'
 import MenuSearch from '@/components/tienda/MenuSearch'
 import { getCarta } from '@/lib/tienda/queries'
+import { SITE_URL, BUSINESS_INFO } from '@/lib/business-info'
 
 export const revalidate = 60
 
-export const metadata = {
-  title: 'Menú — Casa Turquesa',
-  description: 'Carta completa de Casa Turquesa: cafés de especialidad, bowls, tostadas, bebidas y más en el corazón de Ñuñoa.',
+export const metadata: Metadata = {
+  title: 'Menú | Cafetería y brunch en Ñuñoa',
+  description:
+    'Carta de Casa Turquesa: café de especialidad, bowls, tostadas, sándwiches, postres y opciones veganas, sin gluten y keto en Av. Ortúzar 250, Ñuñoa.',
+  alternates: { canonical: '/menu' },
+  openGraph: {
+    title: 'Menú | Casa Turquesa',
+    description:
+      'Café de especialidad, brunch, bowls y opciones veganas, sin gluten y keto en Ñuñoa.',
+    url: `${SITE_URL}/menu`,
+    images: [{ url: BUSINESS_INFO.ogImage, width: 1200, height: 630 }],
+  },
 }
 
 export default async function MenuPage() {
@@ -76,7 +87,7 @@ export default async function MenuPage() {
             Pronto vamos a tener nuestra carta completa cargada acá. Mientras tanto, podés consultarnos por WhatsApp.
           </p>
           <a
-            href="https://wa.me/56928254899?text=Hola%20Casa%20Turquesa%2C%20me%20gustar%C3%ADa%20conocer%20la%20carta"
+            href="https://wa.me/56935227488?text=Hola%20Casa%20Turquesa%2C%20me%20gustar%C3%ADa%20conocer%20la%20carta"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#2C5F5D] text-white text-sm uppercase tracking-[0.2em] hover:bg-[#1f4644] transition-all"
@@ -96,7 +107,7 @@ export default async function MenuPage() {
                 consultanos al pedir.
               </p>
               <a
-                href="https://wa.me/56928254899?text=Hola%20Casa%20Turquesa%2C%20quisiera%20hacer%20una%20reserva"
+                href="https://wa.me/56935227488?text=Hola%20Casa%20Turquesa%2C%20quisiera%20hacer%20una%20reserva"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#2C5F5D] text-white text-sm uppercase tracking-[0.2em] hover:bg-[#1f4644] transition-all"

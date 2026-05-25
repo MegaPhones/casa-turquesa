@@ -31,7 +31,7 @@ export default function NotFound() {
               Volver a la tienda
             </Link>
             <a
-              href="https://wa.me/56928254899?text=Hola%20Casa%20Turquesa%2C%20busco%20un%20producto%20que%20no%20encuentro%20en%20la%20web."
+              href="https://wa.me/56935227488?text=Hola%20Casa%20Turquesa%2C%20busco%20un%20producto%20que%20no%20encuentro%20en%20la%20web."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-[#2C5F5D] text-[#2C5F5D] text-sm uppercase tracking-[0.2em] hover:bg-[#2C5F5D] hover:text-white transition-all"
