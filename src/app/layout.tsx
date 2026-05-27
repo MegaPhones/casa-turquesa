@@ -1,8 +1,14 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import LenisProvider from '@/components/LenisProvider'
 import CartDrawer from '@/components/tienda/CartDrawer'
 import { SITE_URL, BUSINESS_INFO } from '@/lib/business-info'
+
+export const viewport: Viewport = {
+  themeColor: '#2C5F5D',
+  width: 'device-width',
+  initialScale: 1,
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -13,6 +19,7 @@ export const metadata: Metadata = {
   description:
     'Cafetería, tostaduría y tienda de alimentos saludables en Av. Ortúzar 250, Ñuñoa. Opciones veganas, sin gluten, keto y tradicionales. Café de especialidad ☕',
   applicationName: 'Casa Turquesa',
+  manifest: '/manifest.webmanifest',
   keywords: [
     'Casa Turquesa',
     'cafetería Ñuñoa',
