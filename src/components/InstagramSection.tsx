@@ -5,8 +5,8 @@ import Image from 'next/image'
 /* ── Trust Bar ─────────────────────────────────────────────────────────── */
 export function TrustBar() {
   const stats = [
-    { value: '10.8K', label: 'Seguidores' },
-    { value: '388',   label: 'Publicaciones' },
+    { value: '11.3K', label: 'Seguidores' },
+    { value: '385',   label: 'Publicaciones' },
     { value: '2019',  label: 'Desde' },
     { value: '4.9★',  label: 'Valoración' },
   ]

@@ -12,6 +12,26 @@ interface IGPost {
   permalink: string
 }
 
+interface IGProfile {
+  profile_picture_url?: string
+  followers_count?: number
+  media_count?: number
+  follows_count?: number
+}
+
+const AVATAR_FALLBACK = '/images/logo-sin-borde.png'
+
+function formatFollowers(n?: number): string | null {
+  if (n === undefined || n === null) return null
+  if (n < 1000) return String(n)
+  return `${(n / 1000).toFixed(1)}K`
+}
+
+function formatCount(n?: number): string | null {
+  if (n === undefined || n === null) return null
+  return new Intl.NumberFormat('es-CL').format(n)
+}
+
 const manualPosts: IGPost[] = [
   {
     id: 'manual1',
@@ -51,19 +71,36 @@ interface InstagramStats {
 
 export default function InstagramGallery({ stats }: { stats?: InstagramStats } = {}) {
   const [apiPosts, setApiPosts] = useState<IGPost[]>([])
+  const [profile, setProfile] = useState<IGProfile | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [avatarFailed, setAvatarFailed] = useState(false)
 
   useEffect(() => {
     fetch('/api/instagram')
       .then(r => r.json())
       .then(data => {
-        if (data.data) setApiPosts(data.data)
-        else setError(true)
+        if (Array.isArray(data.posts)) {
+          setApiPosts(data.posts)
+          if (data.profile) setProfile(data.profile)
+        } else {
+          setError(true)
+        }
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [])
+
+  const avatarSrc = !loading && profile?.profile_picture_url && !avatarFailed
+    ? `/api/instagram/image?url=${encodeURIComponent(profile.profile_picture_url)}`
+    : AVATAR_FALLBACK
+
+  const followersDisplay =
+    formatFollowers(profile?.followers_count) ?? stats?.followers ?? '11.3K'
+  const postsDisplay =
+    formatCount(profile?.media_count) ?? stats?.posts ?? '385'
+  const followingDisplay =
+    formatCount(profile?.follows_count) ?? stats?.following ?? '1.526'
 
   const allPosts: IGPost[] = [
     apiPosts[0],
@@ -112,14 +149,17 @@ export default function InstagramGallery({ stats }: { stats?: InstagramStats } =
           <div style={{
             width: 120, height: 120, borderRadius: '50%', overflow: 'hidden',
             border: '3px solid #1ABFAA', flexShrink: 0, position: 'relative',
-            background: '#fff',
+            background: '#f0ebe5',
           }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/CasaTurqueza_Logos__1__page-0001.jpg"
-              alt="Casa Turquesa"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-            />
+            {!loading && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={avatarSrc}
+                alt="Casa Turquesa"
+                onError={() => setAvatarFailed(true)}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            )}
           </div>
 
           {/* Info */}
@@ -143,9 +183,9 @@ export default function InstagramGallery({ stats }: { stats?: InstagramStats } =
             {/* Stats */}
             <div style={{ display: 'flex', gap: '1.75rem', marginBottom: 12, flexWrap: 'wrap' }}>
               {[
-                [stats?.posts ?? '388', 'publicaciones'],
-                [stats?.followers ?? '10.8K', 'seguidores'],
-                [stats?.following ?? '1.526', 'siguiendo'],
+                [postsDisplay, 'publicaciones'],
+                [followersDisplay, 'seguidores'],
+                [followingDisplay, 'siguiendo'],
               ].map(([n, l]) => (
                 <div key={l} style={{ fontSize: 14, color: '#1a1a1a' }}>
                   <strong>{n}</strong> <span style={{ color: '#888' }}>{l}</span>
