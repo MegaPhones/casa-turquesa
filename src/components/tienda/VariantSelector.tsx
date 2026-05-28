@@ -50,7 +50,7 @@ export default function VariantSelector({
       <div className="space-y-4">
         <div className="text-2xl text-neutral-400">Producto sin precio configurado</div>
         <a
-          href={`https://wa.me/56935227488?text=${encodeURIComponent(`Hola Casa Turquesa, me interesa el producto "${productoNombre}"${productoMarca ? ` de ${productoMarca}` : ''} y quería consultar disponibilidad.`)}`}
+          href={`https://wa.me/56934990617?text=${encodeURIComponent(`Hola Casa Turquesa, me interesa el producto "${productoNombre}"${productoMarca ? ` de ${productoMarca}` : ''} y quería consultar disponibilidad.`)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#2C5F5D] text-white text-sm uppercase tracking-[0.2em] hover:bg-[#1f4644] transition-all"
@@ -178,7 +178,7 @@ export default function VariantSelector({
         <p className="text-xs text-neutral-500 italic">
           ¿Preferís coordinar por WhatsApp?{' '}
           <a
-            href={`https://wa.me/56935227488?text=${encodeURIComponent(`Hola Casa Turquesa, me interesa el producto "${productoNombre}"${productoMarca ? ` de ${productoMarca}` : ''}.`)}`}
+            href={`https://wa.me/56934990617?text=${encodeURIComponent(`Hola Casa Turquesa, me interesa el producto "${productoNombre}"${productoMarca ? ` de ${productoMarca}` : ''}.`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#2C5F5D] underline hover:no-underline"

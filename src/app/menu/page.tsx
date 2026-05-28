@@ -87,7 +87,7 @@ export default async function MenuPage() {
             Pronto vamos a tener nuestra carta completa cargada acá. Mientras tanto, podés consultarnos por WhatsApp.
           </p>
           <a
-            href="https://wa.me/56935227488?text=Hola%20Casa%20Turquesa%2C%20me%20gustar%C3%ADa%20conocer%20la%20carta"
+            href="https://wa.me/56934990617?text=Hola%20Casa%20Turquesa%2C%20me%20gustar%C3%ADa%20conocer%20la%20carta"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#2C5F5D] text-white text-sm uppercase tracking-[0.2em] hover:bg-[#1f4644] transition-all"
@@ -107,7 +107,7 @@ export default async function MenuPage() {
                 consultanos al pedir.
               </p>
               <a
-                href="https://wa.me/56935227488?text=Hola%20Casa%20Turquesa%2C%20quisiera%20hacer%20una%20reserva"
+                href="https://wa.me/56934990617?text=Hola%20Casa%20Turquesa%2C%20quisiera%20hacer%20una%20reserva"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#2C5F5D] text-white text-sm uppercase tracking-[0.2em] hover:bg-[#1f4644] transition-all"
