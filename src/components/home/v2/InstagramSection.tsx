@@ -118,7 +118,7 @@ export default function InstagramSection() {
   return (
     <section
       style={{ backgroundColor: '#FAF8F4' }}
-      className="py-20 md:py-[120px] px-5 md:px-12"
+      className="pt-20 md:pt-[120px] pb-[160px] md:pb-[200px] px-5 md:px-12"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -235,15 +235,12 @@ export default function InstagramSection() {
             }}
           >
             <blockquote
-              className="font-serif italic m-0 text-[22px] md:text-[28px]"
-              style={{ lineHeight: 1.4, color: '#1a1a1a' }}
+              className="font-serif italic m-0 text-[22px] md:text-[28px] text-[#1a1a1a]"
+              style={{ lineHeight: 1.4 }}
             >
               “{reseña.cita}”
             </blockquote>
-            <p
-              className="mt-5 text-[13px] font-medium"
-              style={{ color: '#2C5F5D' }}
-            >
+            <p className="mt-5 text-[13px] font-medium text-[#2C5F5D]">
               — {reseña.autor} · {reseña.fecha}
             </p>
           </div>

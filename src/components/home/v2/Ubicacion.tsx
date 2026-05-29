@@ -1,8 +1,8 @@
 export default function Ubicacion() {
   return (
     <section
-      style={{ backgroundColor: '#FAF8F4', borderTop: '1px solid rgba(44,95,93,0.1)' }}
-      className="py-20 md:py-[120px] px-5 md:px-12"
+      style={{ backgroundColor: '#FAF8F4', borderTop: '1px solid rgba(44,95,93,0.15)' }}
+      className="pt-20 md:pt-[160px] pb-20 md:pb-[120px] px-5 md:px-12"
     >
       <style>{`
         @keyframes ct-pin-ping {

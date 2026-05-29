@@ -7,11 +7,11 @@ type StatusKind = 'open' | 'closing-soon' | 'opening-soon' | 'closed'
 interface Status {
   kind: StatusKind
   message: string
+  nextOpenLabel?: string
 }
 
 interface Weather {
   temp: number
-  message: string
 }
 
 // Horarios en horas decimales: 7.5 = 7:30, 21 = 21:00
@@ -79,7 +79,11 @@ function computeStatus(now: Date): Status {
       const mins = Math.max(1, Math.ceil(minsToOpen))
       return { kind: 'opening-soon', message: `Abrimos en ${mins} ${mins === 1 ? 'minuto' : 'minutos'}` }
     }
-    return { kind: 'closed', message: `Cerrado · Abre hoy a las ${decToTime(today.open)}` }
+    return {
+      kind: 'closed',
+      message: `Cerrado · Abre hoy a las ${decToTime(today.open)}`,
+      nextOpenLabel: 'hoy',
+    }
   }
 
   // Después del cierre → próximo día abierto
@@ -90,18 +94,33 @@ function computeStatus(now: Date): Status {
     const sched = SCHEDULE[nextDay]
     if (sched) {
       const label = i === 1 ? 'mañana' : DAY_LABEL_ES[nextDay]
-      return { kind: 'closed', message: `Cerrado · Abre ${label} a las ${decToTime(sched.open)}` }
+      return {
+        kind: 'closed',
+        message: `Cerrado · Abre ${label} a las ${decToTime(sched.open)}`,
+        nextOpenLabel: label,
+      }
     }
   }
   return { kind: 'closed', message: 'Cerrado' }
 }
 
-function weatherMessage(temp: number): string {
+function weatherMessage(temp: number, status: Status | null): string {
   const t = Math.round(temp)
-  if (temp < 10) return `${t}° en Ñuñoa · Hace frío, ideal para un chocolate caliente`
-  if (temp < 18) return `${t}° en Ñuñoa · Perfecto para un latte`
-  if (temp <= 25) return `${t}° en Ñuñoa · Ideal para un café helado`
-  return `${t}° en Ñuñoa · Hace calor, pide un mocktail kombucha`
+  // Abierto o por cerrar → recomendación de bebida
+  if (!status || status.kind === 'open' || status.kind === 'closing-soon') {
+    if (temp < 10) return `${t}° en Ñuñoa · Hace frío, ideal para un chocolate caliente`
+    if (temp < 18) return `${t}° en Ñuñoa · Perfecto para un latte`
+    if (temp <= 25) return `${t}° en Ñuñoa · Ideal para un café helado`
+    return `${t}° en Ñuñoa · Hace calor, pide un mocktail kombucha`
+  }
+  if (status.kind === 'opening-soon') {
+    return `${t}° en Ñuñoa · Pronto te esperamos`
+  }
+  // closed
+  const label = status.nextOpenLabel
+  if (!label || label === 'hoy') return `${t}° en Ñuñoa · Te esperamos pronto`
+  if (label === 'mañana') return `${t}° en Ñuñoa · Te esperamos mañana`
+  return `${t}° en Ñuñoa · Te esperamos ${label}`
 }
 
 const COLOR_BY_KIND: Record<StatusKind, { dot: string; pulse: boolean }> = {
@@ -134,7 +153,7 @@ export default function StatusBar() {
         const data = (await res.json()) as { current?: { temperature_2m?: number } }
         const t = data?.current?.temperature_2m
         if (typeof t === 'number' && !cancelled) {
-          setWeather({ temp: t, message: weatherMessage(t) })
+          setWeather({ temp: t })
         }
       } catch {
         /* si falla open-meteo, ocultamos el lado del clima */
@@ -174,7 +193,7 @@ export default function StatusBar() {
           </span>
         </span>
         <span className="hidden md:inline text-white/85 truncate">
-          {weather?.message ?? ''}
+          {weather ? weatherMessage(weather.temp, status) : ''}
         </span>
       </div>
     </div>

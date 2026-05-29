@@ -35,9 +35,13 @@ function CountUp({ end, suffix = '', decimals = 0, inView }: CountUpProps) {
     let raf = 0
     const tick = (t: number) => {
       const progress = Math.min(1, (t - start) / duration)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setValue(end * eased)
-      if (progress < 1) raf = requestAnimationFrame(tick)
+      if (progress < 1) {
+        const eased = 1 - Math.pow(1 - progress, 3)
+        setValue(end * eased)
+        raf = requestAnimationFrame(tick)
+      } else {
+        setValue(end)
+      }
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
@@ -84,7 +88,7 @@ export default function Manifesto() {
           initial={reduceMotion ? false : 'hidden'}
           animate={inView ? 'show' : 'hidden'}
           variants={containerVariants}
-          className="flex flex-col gap-1 md:gap-4"
+          className="flex flex-col gap-6 md:gap-12"
         >
           {VERBOS.map((v) => (
             <motion.span

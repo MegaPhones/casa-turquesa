@@ -2,11 +2,21 @@
 
 import Image from 'next/image'
 
-const spaces = [
+const spaces: Array<{
+  id: number
+  title: string
+  description: string
+  image: string | null
+  duration: string
+  capacity: string
+  price: string
+  tag: string | null
+}> = [
   {
     id: 1, title: 'Taller de Cata de Café',
     description: 'Aprende a identificar perfiles de sabor, técnicas de extracción y el proceso del café de especialidad.',
-    image: '/images/espacios/interior-real.jpg',
+    // TODO: subir imagen real para Taller de Cata de Café (la actual era muy oscura, brillo medio 0.13)
+    image: null,
     duration: '2 horas', capacity: 'Hasta 10 personas', price: '$24.000 / persona', tag: 'Más popular',
   },
   {
@@ -50,7 +60,15 @@ export default function Spaces() {
             >
               {/* Imagen */}
               <div style={{ position: 'relative', height: 160, overflow: 'hidden', backgroundColor: '#e8e0d8' }}>
-                <Image src={space.image} alt={space.title} fill loading="eager" style={{ objectFit: 'cover', objectPosition: 'center top' }} />
+                {space.image ? (
+                  <Image src={space.image} alt={space.title} fill loading="eager" style={{ objectFit: 'cover', objectPosition: 'center top' }} />
+                ) : (
+                  <div
+                    style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #2C5F5D 0%, #1a4544 100%)' }}
+                    role="img"
+                    aria-label={space.title}
+                  />
+                )}
                 {space.tag && (
                   <span style={{
                     position: 'absolute', top: 12, left: 12,
