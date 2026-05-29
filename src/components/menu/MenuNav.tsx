@@ -55,8 +55,8 @@ export default function MenuNav({ categorias }: Props) {
 
   return (
     <nav className="sticky top-20 z-30 bg-[#FAF8F4]/95 backdrop-blur-sm border-b border-neutral-200/60 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 mb-8">
-      <div className="max-w-5xl mx-auto overflow-x-auto py-3">
-        <ul className="flex gap-1 sm:gap-2 whitespace-nowrap min-w-max">
+      <div className="max-w-5xl mx-auto overflow-x-auto md:overflow-x-visible py-3">
+        <ul className="flex md:flex-wrap md:justify-center gap-1 sm:gap-2 md:gap-y-2 whitespace-nowrap min-w-max md:min-w-0">
           {visibles.map((c) => {
             const slug = categoriaSlug(c.nombre)
             const isActive = activeSlug === slug
