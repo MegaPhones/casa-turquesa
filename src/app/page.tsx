@@ -1,18 +1,20 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import Navbar from '@/components/Navbar'
-import Hero from '@/components/Hero'
-import { TrustBar } from '@/components/InstagramSection'
-import Intro from '@/components/Intro'
-import Products from '@/components/Products'
+import StatusBar from '@/components/home/v2/StatusBar'
+import Hero from '@/components/home/v2/Hero'
+import Manifesto from '@/components/home/v2/Manifesto'
+import CartaViva from '@/components/home/v2/CartaViva'
+import Ubicacion from '@/components/home/v2/Ubicacion'
 import Spaces from '@/components/Spaces'
 import AIAgent from '@/components/AIAgent'
-import InstagramGallery from '@/components/InstagramGallery'
 import Footer from '@/components/Footer'
-import MapSection from '@/components/MapSection'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import JsonLd from '@/components/seo/JsonLd'
 import { getPublicConfig } from '@/lib/supabase-server'
 import { BUSINESS_INFO, SITE_URL } from '@/lib/business-info'
+
+const InstagramSection = dynamic(() => import('@/components/home/v2/InstagramSection'))
 
 export const revalidate = 60
 
@@ -33,7 +35,6 @@ export const metadata: Metadata = {
 export default async function Home() {
   const config = await getPublicConfig().catch(() => ({} as Awaited<ReturnType<typeof getPublicConfig>>))
   const g = config.general ?? {}
-  const ig = config.instagram ?? {}
 
   const businessSchema = {
     '@context': 'https://schema.org',
@@ -98,14 +99,14 @@ export default async function Home() {
     <main>
       <JsonLd data={[businessSchema, websiteSchema]} />
       <Navbar />
-      <Hero title={g.hero_title} subtitle={g.hero_subtitle} />
-      <TrustBar />
-      <Intro />
-      <Products />
-      <InstagramGallery stats={ig} />
+      <StatusBar />
+      <Hero />
+      <Manifesto />
+      <CartaViva />
+      <InstagramSection />
+      <Ubicacion />
       <Spaces />
       <AIAgent />
-      <MapSection />
       <Footer
         hoursWeekday={g.hours_weekday}
         hoursSaturday={g.hours_saturday}
