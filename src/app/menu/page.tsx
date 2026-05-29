@@ -2,12 +2,13 @@ import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
-import MenuNav from '@/components/tienda/MenuNav'
-import MenuSearch from '@/components/tienda/MenuSearch'
-import { getCarta } from '@/lib/tienda/queries'
+import MenuNav from '@/components/menu/MenuNav'
+import MenuSearch from '@/components/menu/MenuSearch'
+import { getMenuFromSheet } from '@/lib/sheets/menu'
+import type { MenuCategoria } from '@/lib/sheets/menu'
 import { SITE_URL, BUSINESS_INFO } from '@/lib/business-info'
 
-export const revalidate = 60
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'Menú | Cafetería y brunch en Ñuñoa',
@@ -23,10 +24,21 @@ export const metadata: Metadata = {
   },
 }
 
+function totalItems(cat: MenuCategoria): number {
+  return (
+    cat.subcategorias.reduce((acc, s) => acc + s.items.length, 0) +
+    cat.itemsSinSubcategoria.length
+  )
+}
+
 export default async function MenuPage() {
-  const secciones = await getCarta()
-  const showDrafts = process.env.NEXT_PUBLIC_SHOW_DRAFTS === 'true'
-  const totalItems = secciones.reduce((acc, s) => acc + s.items.length, 0)
+  let categorias: MenuCategoria[] = []
+  try {
+    categorias = await getMenuFromSheet()
+  } catch {
+    categorias = []
+  }
+  const total = categorias.reduce((acc, c) => acc + totalItems(c), 0)
 
   return (
     <main className="min-h-screen bg-[#FAF8F4]">
@@ -62,29 +74,16 @@ export default async function MenuPage() {
         </div>
       </section>
 
-      {showDrafts && (
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
-          <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-900 flex items-start gap-3">
-            <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <div>
-              <strong className="font-semibold">Modo desarrollo:</strong> mostrando ítems en borrador. En producción solo se verán los publicados.
-            </div>
-          </div>
-        </div>
-      )}
-
-      {totalItems === 0 ? (
+      {total === 0 ? (
         <section className="px-4 py-20 text-center max-w-xl mx-auto">
           <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-[#2C5F5D]/10 flex items-center justify-center">
             <svg className="w-8 h-8 text-[#2C5F5D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
             </svg>
           </div>
-          <h2 className="font-serif text-2xl text-neutral-900 mb-3">Estamos preparando la carta</h2>
+          <h2 className="font-serif text-2xl text-neutral-900 mb-3">Estamos actualizando el menú</h2>
           <p className="text-neutral-600 mb-6">
-            Pronto vamos a tener nuestra carta completa cargada acá. Mientras tanto, podés consultarnos por WhatsApp.
+            Por favor consulta por WhatsApp +56 9 3499 0617.
           </p>
           <a
             href="https://wa.me/56934990617?text=Hola%20Casa%20Turquesa%2C%20me%20gustar%C3%ADa%20conocer%20la%20carta"
@@ -98,8 +97,8 @@ export default async function MenuPage() {
       ) : (
         <section className="px-4 sm:px-6 lg:px-8 pb-20">
           <div className="max-w-5xl mx-auto">
-            <MenuNav secciones={secciones} />
-            <MenuSearch secciones={secciones} />
+            <MenuNav categorias={categorias} />
+            <MenuSearch categorias={categorias} />
 
             <div className="mt-16 pt-10 border-t border-neutral-200 text-center max-w-2xl mx-auto">
               <p className="text-xs text-neutral-500 italic mb-4">
