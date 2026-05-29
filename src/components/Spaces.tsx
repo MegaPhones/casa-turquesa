@@ -15,8 +15,8 @@ const spaces: Array<{
   {
     id: 1, title: 'Taller de Cata de Café',
     description: 'Aprende a identificar perfiles de sabor, técnicas de extracción y el proceso del café de especialidad.',
-    // TODO: subir imagen real para Taller de Cata de Café (la actual era muy oscura, brillo medio 0.13)
-    image: null,
+    // TODO: reemplazar con foto real del taller cuando esté disponible (actualmente Unsplash de referencia)
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80',
     duration: '2 horas', capacity: 'Hasta 10 personas', price: '$24.000 / persona', tag: 'Más popular',
   },
   {

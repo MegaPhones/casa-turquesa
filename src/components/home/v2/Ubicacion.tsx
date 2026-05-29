@@ -4,17 +4,6 @@ export default function Ubicacion() {
       style={{ backgroundColor: '#FAF8F4', borderTop: '1px solid rgba(44,95,93,0.15)' }}
       className="pt-20 md:pt-[160px] pb-20 md:pb-[120px] px-5 md:px-12"
     >
-      <style>{`
-        @keyframes ct-pin-ping {
-          0% { transform: scale(1); opacity: 0.5 }
-          70% { transform: scale(2.4); opacity: 0 }
-          100% { transform: scale(2.4); opacity: 0 }
-        }
-        .ct-pin-ping { animation: ct-pin-ping 2s ease-out infinite; }
-        @media (prefers-reduced-motion: reduce) {
-          .ct-pin-ping { animation: none; opacity: 0; }
-        }
-      `}</style>
       <div className="max-w-7xl mx-auto">
         {/* Header centrado */}
         <div className="text-center mb-12 md:mb-16">
@@ -37,109 +26,21 @@ export default function Ubicacion() {
 
         {/* Grid 2 cols (1.4fr 1fr) desktop / 1 col mobile */}
         <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-12">
-          {/* IZQUIERDA: Mapa placeholder */}
-          <div className="relative" style={{ aspectRatio: '16 / 10' }}>
-            {/* TODO: reemplazar div placeholder con <iframe src={GOOGLE_MAPS_EMBED_URL} className="w-full h-full border-0 rounded" /> cuando Mauricio pegue el link */}
-            <div
-              className="absolute inset-0 overflow-hidden"
-              style={{
-                backgroundColor: '#E8E4DA',
-                backgroundImage:
-                  'linear-gradient(rgba(44,95,93,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(44,95,93,0.08) 1px, transparent 1px)',
-                backgroundSize: '32px 32px',
-                borderRadius: 4,
-              }}
-              role="img"
-              aria-label="Mapa de Casa Turquesa en Av. Ortúzar 250, Ñuñoa (placeholder)"
-            >
-              {/* Calles simuladas */}
-              <div
-                className="absolute"
-                style={{
-                  top: '42%',
-                  left: 0,
-                  right: 0,
-                  height: 8,
-                  background: 'rgba(255,255,255,0.75)',
-                }}
-              />
-              <div
-                className="absolute"
-                style={{
-                  top: 0,
-                  bottom: 0,
-                  left: '55%',
-                  width: 6,
-                  background: 'rgba(255,255,255,0.75)',
-                }}
-              />
-              <div
-                className="absolute"
-                style={{
-                  top: '70%',
-                  left: 0,
-                  right: '40%',
-                  height: 4,
-                  background: 'rgba(255,255,255,0.55)',
-                }}
-              />
-
-              {/* Pin central con pulse */}
-              <div
-                className="absolute"
-                style={{ left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }}
-              >
-                <div className="relative" style={{ width: 60, height: 60 }}>
-                  <div
-                    className="ct-pin-ping absolute inset-0 rounded-full"
-                    style={{ backgroundColor: '#2C5F5D' }}
-                    aria-hidden
-                  />
-                  <div
-                    className="relative flex items-center justify-center rounded-full"
-                    style={{
-                      width: 60,
-                      height: 60,
-                      backgroundColor: '#2C5F5D',
-                      boxShadow: '0 4px 16px rgba(44,95,93,0.4)',
-                      color: '#fff',
-                    }}
-                  >
-                    <svg
-                      width="28"
-                      height="28"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M17 8h1a4 4 0 0 1 0 8h-1" />
-                      <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z" />
-                      <line x1="6" y1="1" x2="6" y2="4" />
-                      <line x1="10" y1="1" x2="10" y2="4" />
-                      <line x1="14" y1="1" x2="14" y2="4" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              {/* Tag bottom-left */}
-              <div
-                className="absolute bg-white"
-                style={{
-                  bottom: 16,
-                  left: 16,
-                  padding: '8px 14px',
-                  borderRadius: 999,
-                  boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-                  fontSize: 12,
-                  color: '#1a1a1a',
-                }}
-              >
-                📍 Av. Ortúzar 250, Ñuñoa
-              </div>
+          {/* IZQUIERDA: Mapa real de Google Maps */}
+          <div className="relative aspect-[16/10] rounded overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.7833!2d-70.58864!3d-33.4519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf45e827d6e9%3A0x0!2sAv.%20Ort%C3%BAzar%20250%2C%20%C3%91u%C3%B1oa%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1700000000000!5m2!1ses!2scl"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Mapa de ubicación de Casa Turquesa en Ñuñoa"
+              className="absolute inset-0 w-full h-full"
+            />
+            <div className="absolute bottom-4 left-4 bg-white px-4 py-2 rounded text-xs text-[#2C5F5D] font-medium shadow-md pointer-events-none z-10">
+              📍 Av. Ortúzar 250, Ñuñoa
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import type { Variants } from 'framer-motion'
@@ -106,25 +107,16 @@ export default function Hero() {
                 style={{ y: photoY }}
                 className="relative aspect-[4/5] overflow-hidden rounded"
               >
-                {/* TODO: reemplazar gradient con <Image src="/images/hero-local.jpg" alt="Interior de Casa Turquesa" fill className="object-cover" /> cuando Mauricio suba foto real */}
-                <div
-                  className="absolute inset-0 flex items-center justify-center"
-                  style={{ background: 'linear-gradient(135deg, #2C5F5D 0%, #1a4544 100%)' }}
-                  role="img"
-                  aria-label="Foto de Casa Turquesa (placeholder)"
-                >
-                  <svg
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.32)"
-                    strokeWidth="1.3"
-                  >
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                    <circle cx="12" cy="13" r="4" />
-                  </svg>
-                </div>
+                {/* TODO: REEMPLAZAR con foto real del local cuando Mauricio suba a /public/images/hero-local.jpg
+                          Actualmente usa Unsplash como referencia visual */}
+                <Image
+                  src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200&q=80"
+                  alt="Interior de cafetería de especialidad con plantas y luz natural"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </motion.div>
 
               {/* Tag flotante "EN ESTE MOMENTO" */}
