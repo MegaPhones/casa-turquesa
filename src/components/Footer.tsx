@@ -3,14 +3,13 @@
 interface FooterProps {
   hoursWeekday?: string
   hoursSaturday?: string
-  hoursSunday?: string
   address?: string
   phone?: string
   email?: string
 }
 
 export default function Footer({
-  hoursWeekday, hoursSaturday, hoursSunday, address, phone, email,
+  hoursWeekday, hoursSaturday, address, phone, email,
 }: FooterProps = {}) {
   return (
     <footer style={{ backgroundColor: '#0d1f1d', color: '#fff', padding: '4rem 3% 2rem' }}>
@@ -27,9 +26,8 @@ export default function Footer({
             </p>
             <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}>
               <p style={{ margin: '0 0 4px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>Horarios</p>
-              <p style={{ margin: 0 }}>{hoursWeekday ?? 'Lun–Vie: 8:00 – 22:00'}</p>
-              <p style={{ margin: 0 }}>{hoursSaturday ?? 'Sábado: 9:00 – 21:00'}</p>
-              <p style={{ margin: 0 }}>{hoursSunday ?? 'Domingo: 10:00 – 20:00'}</p>
+              <p style={{ margin: 0 }}>{hoursWeekday ?? 'Lunes a viernes: 7:30 a 21:00 hrs'}</p>
+              <p style={{ margin: 0 }}>{hoursSaturday ?? 'Sábado, domingo y festivos: 9:00 a 21:00 hrs'}</p>
             </div>
           </div>
 

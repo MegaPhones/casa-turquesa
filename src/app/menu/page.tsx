@@ -60,7 +60,10 @@ export default async function MenuPage() {
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto text-sm">
             <div className="bg-white/60 rounded-xl px-4 py-3 border border-neutral-200/60">
               <div className="text-[10px] uppercase tracking-[0.2em] text-[#2C5F5D] mb-1">Horario</div>
-              <div className="text-neutral-700 text-xs">Lun-Vie 8:00-22:00</div>
+              <div className="text-neutral-700 text-xs leading-snug space-y-0.5">
+                <div>Lun-Vie: 7:30 a 21:00 hrs</div>
+                <div>Sáb-Dom-Festivos: 9:00 a 21:00 hrs</div>
+              </div>
             </div>
             <div className="bg-white/60 rounded-xl px-4 py-3 border border-neutral-200/60">
               <div className="text-[10px] uppercase tracking-[0.2em] text-[#2C5F5D] mb-1">Dirección</div>

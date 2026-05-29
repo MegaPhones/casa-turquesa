@@ -109,7 +109,6 @@ export default async function Home() {
       <Footer
         hoursWeekday={g.hours_weekday}
         hoursSaturday={g.hours_saturday}
-        hoursSunday={g.hours_sunday}
         address={g.address}
         phone={g.phone}
         email={g.email}
