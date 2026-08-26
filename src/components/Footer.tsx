@@ -77,9 +77,15 @@ export default function Footer({
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', margin: 0 }}>
             © {new Date().getFullYear()} Casa Turquesa. Todos los derechos reservados.
           </p>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', margin: 0 }}>
-            Diseñado con ♥ en Ñuñoa
-          </p>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+            <a href="/politica-privacidad" style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#1ABFAA')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}
+            >Política de Privacidad</a>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', margin: 0 }}>
+              Diseñado con ♥ en Ñuñoa
+            </p>
+          </div>
         </div>
       </div>
     </footer>
