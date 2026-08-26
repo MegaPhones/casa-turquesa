@@ -89,7 +89,7 @@ export default function PoliticaPrivacidad() {
           <p>
             Puedes solicitar acceso, corrección o eliminación de tus datos personales en cualquier
             momento escribiéndonos a{' '}
-            <A href="mailto:casaturquesa.cl@gmail.com">casaturquesa.cl@gmail.com</A>.
+            <A href="mailto:mauri.lopez.hola@gmail.com">mauri.lopez.hola@gmail.com</A>.
             Responderemos tu solicitud en un plazo razonable.
           </p>
         </Section>
@@ -112,7 +112,7 @@ export default function PoliticaPrivacidad() {
         <div style={{ marginTop: 48, paddingTop: 24, borderTop: '1px solid #e5e5e5', fontSize: 13, color: '#888' }}>
           <p>
             Si tienes dudas sobre esta política, escríbenos a{' '}
-            <A href="mailto:casaturquesa.cl@gmail.com">casaturquesa.cl@gmail.com</A>.
+            <A href="mailto:mauri.lopez.hola@gmail.com">mauri.lopez.hola@gmail.com</A>.
           </p>
         </div>
       </main>
